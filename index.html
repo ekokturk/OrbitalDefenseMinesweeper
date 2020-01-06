@@ -1,0 +1,165 @@
+<!-- Orbital Defense Minesweeper Application. Copyright (C) 2019 Eser Kokturk. All Rights Reserved. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Application Title -->
+    <title>Orbital Defense - Minesweeper</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css"  href="static/css/style.css" />
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="player-modal">
+        <div class="player-modal-content">
+            <span id="modal-error"></span>
+            <div id="login">
+                <h1>LOGIN</h1>
+                <input id="login-username" class="player-modal-input" type="text" placeholder="username">
+                <input id="login-password" class="player-modal-input" type="password" placeholder="password">
+                <div id="login-button" class="box-secret player-modal-button">LOGIN</div>
+            </div>
+            <div id="register">
+                <h1>REGISTER</h1>
+                <input id="register-username" class="player-modal-input" type="text" placeholder="username">
+                <input id="register-password" class="player-modal-input" type="password" placeholder="password">
+                <div id="register-button" class="box-secret player-modal-button">REGISTER</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Header Section -->
+    <div id="header">
+        <!-- Main title -->
+        <h1>ORBITAL DEFENSE</h1>
+    </div>
+
+    <!-- Content Section -->
+    <div id="container">
+        <!-- Main Menu -->
+        <div id="main-menu" class="content-default menu-size-large">  
+            <div id="main-menu-content">      
+                <div id="main-menu-options">
+                    <h2 id="logged-user"></h1>   
+                    <h1 data-option="option-play">PLAY</h1>
+                    <h1 data-option="option-settings">SETTINGS</h1> 
+                    <h1 data-option="option-instructions">INSTRUCTIONS</h1> 
+                    <h1 data-option="option-scoreboard">SCOREBOARD</h1>
+                    <h1 data-option="option-logout">LOGOUT</h1>
+                </div>
+                <div id="main-menu-image">  
+                </div>
+            </div>
+        </div>
+
+        <div id="side-menu"  class="hide"> 
+            <h1 data-option="option-back">BACK</h1>
+        </div>
+
+        <!-- Game Menu -->
+        <div id="game-menu" class="hide content-default menu-size-small">
+            <div id="game-menu-content">
+                <div id="game-info">    
+                    <div id="game-info-flag">
+                        <!-- Flag Counter -->
+                    </div>
+                    <div id="game-info-icon"> 
+                        <img id="game-info-image" class="game-icon-style" src="./static/images/ship-icon.png">
+                    </div>
+                    <div id="game-info-timer">
+                        <!-- Gamer Timer -->
+                    </div>
+                </div>
+                <div id="field"> 
+                    <!-- Minefield -->
+                </div>
+            </div>                                            
+        </div>
+
+        <!-- Settings Menu-->
+        <div id="settings-menu" class="hide content-default menu-size-large">                                        
+            <h1>DIFFICULTY</h1>
+            <div id="set-difficulty" class="setting-menu-style">
+                <div class="box-passive settings-button" data-dfc="easy">Easy</div>
+                <div class="box-secret settings-button" data-dfc="normal">Normal</div>
+                <div class="box-secret settings-button" data-dfc="hard">Hard</div>
+            </div>
+            <h1>FIELD SIZE</h1>
+            <div id="set-fieldsize" class="setting-menu-style">
+                <div class="box-secret settings-button" data-size="small">Small</div>
+                <div class="box-passive box-secret settings-button" data-size="medium">Medium</div>
+                <div class="box-secret settings-button" data-size="large">Large</div>
+            </div>
+            <h1>VOLUME</h1>
+            <div id="set-volume" class="setting-menu-style">
+                <div class="box-secret settings-button" data-volume="volume-down">-</div>
+                <span data-volume="volume"></span>
+                <div class="box-secret settings-button" data-volume="volume-up">+</div>
+            </div>
+        </div>
+
+        <!-- Instructions Menu -->
+        <div id="instructions-menu" class="hide content-default menu-size-large">
+            <div id="instructions-menu-container">
+                <h1>Mission</h1>
+                <p>
+                    A cluster of meteors are coming towards the Earth and our orbital cannons cannot lock on the large meteors because of the meteorites surrounding them. 
+                    Commander, you are tasked to fly the prototype spaceship equipped with ion cannons and destroy smaller meteorites so that our orbital cannons
+                    can precisely clear the main threats. Manually targeting large meteors can also make our job down here easier. Fate of humanity depends on you...
+                </p>
+                <h1>Gameplay</h1>
+                <p>
+                    Each opened box shows how many meteors are located around the perimeter. You must avoid opening a box
+                    which has a meteor inside. You can target certain boxes to make them uninteractable or you 
+                    can mark them with a question mark if you are not totally sure box contains a mine. Game is lost when you open a box with meteor and it is won when you 
+                    locate all non meteor boxes by clicking them. After the game ends, result is recorded to scoreboard for the current player.
+                </p>
+                <h1>Controls</h1>
+                    <div id="instructions-menu-info">
+                        <div>
+                            <h2>Game</h3>
+                            <span>Left Click:</span> Open Box
+                            <br>
+                            <span>Right Click:</span> Target - Question Mark - Unselect
+                            <br>
+                            <span>Spaceship Icon:</span> Reset Game
+                        </div>
+                        <div>
+                            <h2>Settings</h3>
+                            <span>Difficulty:</span> Change Mine Count
+                            <br>
+                            <span>Size:</span> Change Gamefield Size
+                            <br>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <!-- Scoreboard Menu -->
+        <div id="scoreboard-menu" class="hide content-default menu-size-large">                                      
+            <div class="scroll" id="scoreboard-scroll">
+                <table>
+                    <thead>
+                        <tr>    
+                            <th >Date</th>
+                            <th >Result</th>
+                            <th >Difficulty</th> 
+                            <th >Field Size</th>
+                            <th >Timer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Section -->
+    <div id="footer">
+        Orbital Defense - Minesweeper Application. Copyright (C) Eser Kokturk. All Rights Reserved.
+    </div>
+    <!-- Javascript Files -->
+    <script type="module" src="./static/scripts/main.js"></script>
+
+</body>
+</html>

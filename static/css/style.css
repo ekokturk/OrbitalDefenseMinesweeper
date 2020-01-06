@@ -1,0 +1,521 @@
+/* Orbital Defense Minesweeper Application. Copyright (C) 2019 Eser Kokturk. All Rights Reserved. */
+
+/* Custom font styles */
+@font-face{
+    /* https://www.1001fonts.com/space-age-font.html */
+    font-family: SpaceAge;                  
+    src: url("../fonts/space age.otf")
+}
+@font-face{
+    /* https://www.1001fonts.com/nasalization-free-font.html */
+    font-family: Nasalization;                  
+    src: url("../fonts/nasalization-rg.ttf")
+}
+body{
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-family: SpaceAge;                              
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.76) 30%,rgba(0, 0, 0, 0.76),rgba(0, 0, 0, 0)), url("../images/background.jpeg");
+    background-repeat: no-repeat;
+    user-select: none;
+}
+ul{
+    padding: 0;                                         
+    list-style-type: none;                              
+}
+.bold{
+    font-weight: bold;
+}
+.hide{
+    display: none;
+}
+.no-events{
+    pointer-events: none;
+}
+.value-input{
+    color: white;
+    font-family: SpaceAge;                              
+    border: white 3px solid;                             
+    background-color:rgba(44, 44, 139, 0.24) ;           
+    text-align: center;                                      
+}
+.menu-size-small{
+    width: 750px;
+    animation: anim-menu-sm;
+    animation-duration: 1s;
+}
+.menu-size-medium{
+    width: 1000px;
+    animation: anim-menu-md;
+    animation-duration: 1s;
+}
+.menu-size-large{
+    width: 1300px;
+    animation: anim-menu-lg;
+    animation-duration: 1s;
+}
+
+/* ===================================== ANIMATIONS =========================================*/
+/* Animation for large menu opening transition */
+@keyframes anim-menu-lg{
+    from {width: 500px;}
+    to {width: 1300px;}
+}
+/* Animation for medium menu opening transition */
+@keyframes anim-menu-md{
+    from {width: 500px;}
+    to {width: 1000px;}
+}
+/* Animation for small menu opening transition */
+@keyframes anim-menu-sm{
+    from {width: 300px;}
+    to {width: 750px;}
+}
+/* Animation for increasing visibility */
+@keyframes anim-opacity{
+    from {opacity: 0;}
+    to {opacity: 100%;}
+}
+
+/* ========================================= HEADER =========================================*/
+/* Header Section */
+#header{
+    text-align: center;                                 
+    width: 100%;                                        
+    font-size: 1.5em;                                   
+    /* Change backgrounfd color to a gradient */
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.650), rgba(0, 0, 139, 0.650) 60%, rgba(0, 0, 0, 0.650));
+    box-shadow: 0px 6px 14px 3px rgba(0, 0, 0, 0.432);
+    text-shadow: 0px 6px  rgba(0, 0, 0, 0.432);       
+}
+/* Game title */
+#header h1{
+    margin: 0;                                          
+    padding: 25px;                                      
+}
+/* ========================================= PLAYER MODAL =========================================*/
+/* The Modal (background) */
+#player-modal {
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 200px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.player-modal-content {
+  background-image: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 0, 139) 60%, rgb(0, 0, 0));
+  margin: auto;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  border: solid rgb(44, 44, 139) 4px;
+  width: 1300px;
+  height: 500px;
+  display: grid;
+  grid-template: "modal-error modal-error"
+                 "login register";
+}
+/* Error message of modal */
+#modal-error{
+    grid-area: modal-error;
+    color: red;
+}
+/* Input field of modal */
+.player-modal-input{
+    margin: 10px 10px;
+    height: 40px;
+    color: white;
+    border: solid rgb(44, 44, 139) 4px;
+    background-color: rgb(62, 62, 187);
+    font-size:1.5em;
+    padding: 0 20px;
+}
+/* Placeholder text for input field */
+.player-modal-input::placeholder{
+    color: rgb(0, 0, 139);
+}
+/* Modal Buttons */
+.player-modal-button{
+    text-align: center;
+    margin: 30px auto;
+    width: 300px;
+    height: 40px;
+    line-height: 30px;
+    font-size:1.5em;
+}
+/* Registration section of the modal */
+#register{
+    grid-area: register;
+    display: flex;
+    flex-direction: column;
+    margin: 40px 20px;
+}
+/* Login section of the modal */
+#login{
+    grid-area: login;
+    display: flex;
+    flex-direction: column;
+    margin: 40px 20px;
+}
+/* ========================================= CONTENTS =========================================*/
+/* Content of the page */
+#container{
+    display: flex;                                      
+    flex-direction: row;                                
+    justify-content: center;                            
+    margin: 40px auto;                                  
+}
+
+/* Default Menu Style */
+.content-default{
+    height: 100%;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.650), rgba(0, 0, 139, 0.650) 60%, rgba(0, 0, 0, 0.650));
+    border: solid rgb(44, 44, 139) 4px;
+    height: 650px;                                      
+}
+/* Main Menu */
+#main-menu{
+    border-radius: 30px;                                 
+}
+/* Main Menu Flexbox (This is required because display none does not work well with flex) */
+#main-menu-content{
+    display: flex;                                                                  
+    flex: row;                                          
+    justify-content: center;
+    
+}
+/* Navigation options container for main menu */
+#main-menu-options{
+    padding: 120px 0;                                  
+    padding-left: 100px;
+    font-size: 1.2em;                                   
+    flex: 50%;                                          
+}
+/* username of the currently logged user */
+#logged-user{
+    color: rgb(44, 44, 139);
+}
+/* Navigation option hover effect */
+#main-menu-options h1{
+    cursor: pointer;                                    
+}
+/* Navigation option hover effect */
+#main-menu-options h1:hover{
+text-shadow: 8px -1px 20px rgba(28,110,164,0.82);     
+}
+
+#main-menu-image{
+    /* https://pixabay.com/en/a-journey-of-discovery-science-3160528/ */
+    background-image: url("../images/spaceship.jpg");    
+    width: 100%;                                         
+    height: auto;
+    background-size: 1050px;                             
+    margin: 30px;                                        
+    background-repeat: no-repeat;                        
+    border-radius: 30px;                                 
+    border: solid rgb(44, 44, 139) 4px;
+}
+/* Sub menus have a side directory */
+#side-menu{
+    height: 650px;                                       
+    background-color: rgba(44, 44, 139, 0.281);        
+    border: solid rgb(44, 44, 139) 4px;               
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 20px;
+}
+/* Side menu options  */
+#side-menu h1{
+    transform: rotate(-90deg);                           
+    margin: 300px auto;                                  
+    cursor: pointer;                                     
+}
+/* Side menu option hover effect */
+#side-menu h1:hover{
+    text-shadow: 8px -1px 20px rgba(28,110,164,0.82);  
+}
+
+/* ========================================= MINEFIELD BOXES =========================================*/
+/* Minefield Container */
+#field{
+    display: flex;                                       
+    flex-grow: 1;
+    flex-direction: row;                                
+    justify-content: center;                             
+}
+#field ul{
+    margin: auto 0;
+}
+/* Minefield Main Box Theme - It will be applied to each box */
+.box{
+    margin: 2px;                                         
+    width: 30px;                                         
+    height: 30px;
+    font-weight: bold;                                   
+    font-family: SpaceAge;                               
+    font-size: 1.3em;
+    color: white;
+    outline: 0;                                          
+    line-height: 25px;                          
+    text-align: center;
+    animation: anim-opacity;
+    animation-duration: 3s;
+    border-radius: 2px;
+}
+/* This box style is applied to unopened boxes which is the default when the field is created */
+.box-secret{
+    border: 3px rgba(255, 255, 255, 0.678) solid;
+    background-color:rgb(44, 44, 139) ;                
+    
+}
+/* Unopened box hover effect */
+.box-secret:active{
+    border: solid rgb(44, 44, 139) 3px;
+}
+/* This box style is applied to opened boxes (Left Click) - Boxes with this style are not interactable */
+.box-passive{
+    border: 3px rgb(44, 44, 139) solid;
+    background-color:rgba(44, 44, 139, 0.281) ;
+}
+/* This box style is applied to flagged (Red) boxes (Right Click) - Boxes with this style are not interactable */
+.box-flagged{
+    border: 3px rgb(77, 10, 13) solid;
+    background-color:rgba(139, 44, 44, 0.281) ;
+    background-image: url("../images/target-icon.png");
+}
+/* This box style is applied to questionmarked (Green) boxes (Right Click) - Boxes with this style are interactable */
+.box-question{
+    border: 3px rgb(4, 46, 28) solid;
+    background-color:rgba(44, 139, 57, 0.281) ;
+    background-image: url("../images/question-icon.png");
+}
+/* This is applied when flagged mine is opened */
+.box-mine-flagged{
+    border: 3px rgb(253, 194, 0) solid;
+    background-color:rgba(255, 209, 6, 0.281) ;
+    background-image: url("../images/meteor-icon.png");
+}
+/* This is applied when mine is opened */
+.box-mine{
+    border: 3px rgb(131, 11, 11) solid;
+    background-color:rgba(255, 0, 0, 0.281) ;
+    background-image: url("../images/meteor-icon.png");
+}
+
+
+/* ========================================= GAME =========================================*/
+/* Game Menu */
+#game-menu{
+    border-top-right-radius: 30px;                                 
+    border-bottom-right-radius: 30px;                                 
+}
+/* Flexbox for game menu */
+#game-menu-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+/* Game Indicators flexbox */
+#game-info{
+    display: flex;                                      
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    border-bottom: 3px rgba(44, 44, 139, 0.452) solid;
+    animation: anim-opacity;
+    animation-duration: 4s;
+}
+/* Flag indicator which shows how many flags are places */
+#game-info-flag{
+    flex: 20%;                                          
+    text-align: center;
+    margin: 20px 50px;
+}
+/* Game state indicator which can also be used for reseting the game */
+#game-info-icon{
+    text-align: center;
+    padding-top: 30px;                          
+
+}
+/* Game state indicator which can also be used for reseting the game */
+.game-icon-style{
+    cursor: pointer;                                    
+    border: solid rgb(44, 44, 139) 4px;
+    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+}
+/* Game state indicator which can also be used for reseting the game */
+.game-icon-style:hover{
+    box-shadow: 0px 1px 41px rgba(28,110,164,0.82);  
+}
+/* Timer indicator */
+#game-info-timer{
+    flex: 20%;
+    height: 100%;
+    text-align: center;
+    margin: 20px 50px;
+}
+/* ========================================= SETTINGS =========================================*/
+/* Settings menu */
+#settings-menu{
+    border-top-right-radius: 30px;                                 
+    border-bottom-right-radius: 30px;                                 
+}
+/* Settings menu flexbox */
+.setting-menu-style{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    animation: anim-opacity;
+    animation-duration: 3s;
+}
+/* Settings menu button style */
+.settings-button{
+    width: 350px;
+    height: 50px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 5px;
+    border-radius: 5px;
+    cursor:pointer;
+}
+/* Settings section titles for each option */
+#settings-menu h1{
+    margin-top: 50px;
+    text-align: center;
+}
+/* Settings menu volume indicator style */
+#set-volume span{
+    width: 350px;
+    height: 50px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 2em;
+    margin: 5px;
+    color: rgba(255, 255, 255, 0.705);
+}
+/* ========================================= INSTRUCTIONS =========================================*/
+/* Instrucions menu */
+#instructions-menu{
+    border-top-right-radius: 30px;                                 
+    border-bottom-right-radius: 30px;                                 
+}
+#instructions-menu-container{
+    padding: 0 60px;
+    animation: anim-opacity;
+    animation-duration: 5s;
+}
+/* Instructions section titles */
+#instructions-menu h1{
+    font-family: SpaceAge;     
+    text-align: center;
+}
+/* Instructions text */
+#instructions-menu p{
+    font-family: Nasalization; 
+    text-align: justify;
+    margin: 40px;
+}
+#instructions-menu-info{
+    justify-content: center;
+    font-family: Nasalization; 
+    display: flex;
+    flex-direction: row;
+}
+#instructions-menu-info div{
+    margin: 0 80px;
+}
+#instructions-menu-info div span{
+    color: rgb(86, 86, 255);
+    font-weight: bold;
+}
+#instructions-menu-info h2{
+    text-align: center;
+}
+/* ========================================= SCOREBOARD =========================================*/
+/* Scoreboard menu */
+#scoreboard-menu{
+    overflow: auto;
+    
+}
+/* Scoreboard menu table */
+#scoreboard-menu table{
+    width: 100%;
+    border: solid rgb(44, 44, 139) 4px;
+    
+}
+/* Scoreboard table column title container */
+#scoreboard-menu thead{
+    width: 100%;
+}
+/* Scoreboard table content */
+#scoreboard-menu body{
+    width: 100%;
+}
+/* Scoreboard menu rows */
+#scoreboard-menu table tr{
+    height: 60px;
+}
+/* Scoreboard table column titles */
+#scoreboard-menu table thead th{
+    position: sticky; 
+    border: 3px rgba(31, 9, 109, 0.678) solid;
+    background-color:rgb(44, 44, 139) ; 
+    top: 0; 
+    text-align: center;
+    font-size: 1.5em;
+}
+/* Scoreboard items */
+#scoreboard-menu table tbody td{
+    text-align: center;
+    font-size: 1.5em;
+}
+/* Scorboard cells */
+#scoreboard-menu table tr, td{
+    border: solid rgba(47, 47, 153, 0.418) 4px;
+}
+/* Scoreboard letter for timer hour minute and second */
+.timer-letters{
+    font-size: 0.8em;
+    color: rgba(175, 171, 171, 0.61);
+}
+.date-letters{
+    color: rgba(175, 171, 171, 0.61);
+}
+/* Scoreboard table scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1b1b5b; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6060b6; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4444d6; 
+}
+/* ========================================= FOOTER =========================================*/
+/* Footer text */
+#footer{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.219);
+}
+
