@@ -5,6 +5,10 @@ A sci-fi themed minesweeper web game that has multiple difficulty levels and a l
 ## **How To Use**
 - Host the directory with a web server and navigate to index.html
 
+## **Play**
+- Go to http://www.eserkokturk.com/games/Orbital-Defense-Minesweeper/
+- Register with a username and password
+
 ## **Screenshots**
 #### **Gameplay**
 
