@@ -8,13 +8,14 @@ A sci-fi themed minesweeper web game that has multiple difficulty levels and a l
 ## **Screenshots**
 #### **Gameplay**
 
-[](/screenshots/1.PNG)
+![](/screenshots/1.PNG)
 
-[](/screenshots/1.PNG)
-
+![](/screenshots/2.PNG)
 
 #### **Settings**
+![](/screenshots/3.PNG)
 
 #### **Leaderboard**
+![](/screenshots/4.PNG)
 
 Orbital Defense Minesweeper @copyright (C) 2019, Eser Kokturk. All Rights Reserved.
